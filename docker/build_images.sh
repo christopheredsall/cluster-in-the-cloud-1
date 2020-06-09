@@ -1,11 +1,8 @@
-cd google-base
-docker build -t clusterinthecloud/google-base:latest .
+#!/bin/bash
 
-cd ../google-install
-docker build -t clusterinthecloud/google-install:latest .
-
-cd ../google-destroy
-docker build -t clusterinthecloud/google-destroy:latest .
-
-cd ..
-
+for dir in *-base *-install *-destroy
+do
+    cd "${dir}" || exit
+    docker build -t clusterinthecloud/"${dir}":latest .
+    cd ..
+done
